@@ -1,0 +1,308 @@
+[
+    {
+        "id": "419f3fbf.63bf",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9db463b4.26a35",
+        "type": "debug",
+        "z": "419f3fbf.63bf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 680,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "905680e8.c82c3",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "on",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "9db463b4.26a35",
+                "47d8f488.dd2e8c"
+            ]
+        ]
+    },
+    {
+        "id": "47d8f488.dd2e8c",
+        "type": "opi_out",
+        "z": "419f3fbf.63bf",
+        "name": "Pin 15 - PA3",
+        "set": true,
+        "level": "0",
+        "select": "OPZP2",
+        "pin": "3",
+        "x": 670,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1b591a58.b05c0e",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "off",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "47d8f488.dd2e8c",
+                "9db463b4.26a35"
+            ]
+        ]
+    },
+    {
+        "id": "ebb0c21f.fb97a",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "on",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "9ebf2aeb.e133e8",
+                "1a20f1de.a313f6"
+            ]
+        ]
+    },
+    {
+        "id": "7b9459c6.d7f31",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "off",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 380,
+        "wires": [
+            [
+                "1a20f1de.a313f6",
+                "9ebf2aeb.e133e8"
+            ]
+        ]
+    },
+    {
+        "id": "9ebf2aeb.e133e8",
+        "type": "debug",
+        "z": "419f3fbf.63bf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 670,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1a20f1de.a313f6",
+        "type": "opi_out",
+        "z": "419f3fbf.63bf",
+        "name": "Pin 16 - PA19",
+        "set": false,
+        "level": 0,
+        "select": "OPZP2",
+        "pin": "19",
+        "x": 680,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ec245b40.e6c4a",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "on",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 480,
+        "wires": [
+            [
+                "50c6e88a.86a3c",
+                "f6c512ad.dfd5d"
+            ]
+        ]
+    },
+    {
+        "id": "a2273702.e20c5",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "off",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 560,
+        "wires": [
+            [
+                "50c6e88a.86a3c",
+                "f6c512ad.dfd5d"
+            ]
+        ]
+    },
+    {
+        "id": "5486de2e.e1d108",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "on",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 640,
+        "wires": [
+            [
+                "fec6312c.84da98",
+                "f8e524e6.7ac1f"
+            ]
+        ]
+    },
+    {
+        "id": "87bd5e55.b49fa",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "off",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 700,
+        "wires": [
+            [
+                "fec6312c.84da98",
+                "f8e524e6.7ac1f"
+            ]
+        ]
+    },
+    {
+        "id": "50c6e88a.86a3c",
+        "type": "debug",
+        "z": "419f3fbf.63bf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 680,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fec6312c.84da98",
+        "type": "debug",
+        "z": "419f3fbf.63bf",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 670,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "f6c512ad.dfd5d",
+        "type": "opi_out",
+        "z": "419f3fbf.63bf",
+        "name": "Pin 18 - PA18",
+        "set": false,
+        "level": 0,
+        "select": "OPZP2",
+        "pin": "18",
+        "x": 700,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "f8e524e6.7ac1f",
+        "type": "opi_out",
+        "z": "419f3fbf.63bf",
+        "name": "Pin 19 - PA15",
+        "set": false,
+        "level": 0,
+        "select": "OPZP2",
+        "pin": "15",
+        "x": 680,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "ded43581.1d943",
+        "type": "inject",
+        "z": "419f3fbf.63bf",
+        "name": "master off",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "47d8f488.dd2e8c",
+                "1a20f1de.a313f6",
+                "f6c512ad.dfd5d",
+                "f8e524e6.7ac1f"
+            ]
+        ]
+    }
+]
