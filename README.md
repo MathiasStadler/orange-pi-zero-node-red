@@ -96,3 +96,10 @@ EOF
 ```bash
 sudo shutdown -Fr now
 ```
+
+## space
+
+```txt
+https://groups.google.com/forum/#!topic/node-red/7dlIfciW3dI
+
+```
