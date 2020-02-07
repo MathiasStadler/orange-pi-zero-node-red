@@ -1,4 +1,4 @@
-# node red on ornage pi zero
+# node red on orange pi zero
 
 ## install
 
@@ -102,4 +102,56 @@ sudo shutdown -Fr now
 ```txt
 https://groups.google.com/forum/#!topic/node-red/7dlIfciW3dI
 
+```
+
+## docker
+
+- source
+
+```txt
+# docker image
+https://nodered.org/docs/getting-started/docker
+
+# alexa amazon device adapter
+https://flows.nodered.org/node/node-red-contrib-amazon-echo
+```
+
+```bash create_volume_amazon-node-red.sh
+
+# volume for flows should be mounted under /data
+docker volume create volume-amazon-node-red
+```
+
+```bash install_container.sh
+CURRENT_CID_ID="/tmp/amazon-node-red-current_cid.id"
+# port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
+# port 1880 for node-red ui
+export CURRENT_CID=$(docker run -it --rm  -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090 -p 1880:1880 --name amazon-node-red nodered/node-red)
+echo $CURRENT_CID > "${CURRENT_CID_ID}"
+```
+
+```bash enable-log.sh
+docker logs -f "$(cat ${CURRENT_CID_ID})"
+echo "$(cat ${CURRENT_CID_ID})"
+```
+
+```bash install node-red flow
+docker exec  "$(cat ${CURRENT_CID_ID})" /bin/sh -c "npm install node-red-contrib-amazon-echo"
+```
+
+```bash restart_docker.sh
+CURRENT_CID_ID="/tmp/amazon-node-red-current_cid.id"
+# port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
+# port 1880 for node-red ui
+export CURRENT_CID=$(docker run -it --rm  -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090 -p 1880:1880 --name amazon-node-red nodered/node-red)
+echo $CURRENT_CID > "${CURRENT_CID_ID}"
+```
+
+
+```bash
+sudo apt-get install iptables-persistent
+sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -t nat -L
+sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 ```
