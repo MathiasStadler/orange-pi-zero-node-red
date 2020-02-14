@@ -6,6 +6,7 @@
 
 ```txt
 https://diyprojects.io/install-node-red-orange-pi-running-armbian/
+https://www.linux-magazin.de/ausgaben/2013/01/videostreaming/2/
 ```
 
 ```bash
@@ -123,10 +124,11 @@ docker volume create volume-amazon-node-red
 ```
 
 ```bash install_container.sh
-CURRENT_CID_ID="/tmp/amazon-node-red-current_cid.id"
+CURRENT_CID_ID="/tmp/amazon-node-red-current-cid.id"
 # port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
 # port 1880 for node-red ui
-export CURRENT_CID=$(docker run -it --rm  -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090 -p 1880:1880 --name amazon-node-red nodered/node-red)
+# port 1900 for UPnP
+export CURRENT_CID=$(docker run -it -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090 -p 1880:1880 -p 1900:1900/udp -p 80:80 --name amazon-node-red nodered/node-red)
 echo $CURRENT_CID > "${CURRENT_CID_ID}"
 ```
 
@@ -140,18 +142,69 @@ docker exec  "$(cat ${CURRENT_CID_ID})" /bin/sh -c "npm install node-red-contrib
 ```
 
 ```bash restart_docker.sh
-CURRENT_CID_ID="/tmp/amazon-node-red-current_cid.id"
+docker stop "$(cat ${CURRENT_CID_ID})"
+# @TODO check is con stopped
 # port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
 # port 1880 for node-red ui
-export CURRENT_CID=$(docker run -it --rm  -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090 -p 1880:1880 --name amazon-node-red nodered/node-red)
+docker start  "$(cat ${CURRENT_CID_ID})"
 echo $CURRENT_CID > "${CURRENT_CID_ID}"
+echo "$(cat ${CURRENT_CID_ID})"
+docker port "$(cat ${CURRENT_CID_ID})"
 ```
 
+```bash
+docker stop "$(cat ${CURRENT_CID_ID})"
+docker rm "$(cat ${CURRENT_CID_ID})"
+```
 
 ```bash
 sudo apt-get install iptables-persistent
 sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
-sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8090
+
 sudo iptables -t nat -L
 sudo sh -c "iptables-save > /etc/iptables/rules.v4"
+```
+
+```bash
+ docker
+```
+
+```bash install_container.sh
+CURRENT_CID_ID="/tmp/amazon-node-red-current-cid.id"
+# port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
+# port 1880 for node-red ui
+# port 1900 for UPnP
+export CURRENT_CID=$(docker run -it -d -v source=volume-amazon-node-red,target=/data  -p 8090:8090/tcp -p 1880:1880/tcp -p 1900:1900/udp -p 80:80/tcp -p 443:443/tcp -p 40317:40317/tcp -p 67:67/tcp -p 68:68/tcp -p 53:53/udp  -p 123:123/udp -p  33434:33434/udp  -p 5000:5000/udp -p 5353:5353/udp  -p 50000:50000/udp -p 49317:49317/udp --name amazon-node-red nodered/node-red)
+echo $CURRENT_CID > "${CURRENT_CID_ID}"
+docker exec  "$(cat ${CURRENT_CID_ID})" /bin/sh -c "npm install node-red-contrib-amazon-echo"
+docker stop "$(cat ${CURRENT_CID_ID})"
+# @TODO check is con stopped
+# port 8090 for node-red  install node-red-contrib-amazon-echo change settings in ui
+# port 1880 for node-red ui
+docker start  "$(cat ${CURRENT_CID_ID})"
+echo $CURRENT_CID > "${CURRENT_CID_ID}"
+echo "$(cat ${CURRENT_CID_ID})"
+docker port "$(cat ${CURRENT_CID_ID})"
+```
+
+## tcpdump for debug
+
+```bash
+sudo tcpdump -s0 -i eth0  -XX host 192.168.178.33
+```
+
+## url
+
+```txt
+http://172.17.0.2:8090/description.xml
+
+
+```
+
+## module
+
+```txt
+https://github.com/diversario/node-ssdp/blob/master/lib/server.js
+https://github.com/datech/node-red-contrib-amazon-echo/blob/master/index.js
 ```
